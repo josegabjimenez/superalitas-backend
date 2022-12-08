@@ -68,9 +68,9 @@ router.post('/email', async function (req, res, next) {
 			</div>
 		</div>`, // html body
 		});
-		res.json({message: 'Email enviado correctamente'});
+		res.status(200).json({message: 'Email enviado correctamente'});
 	} else {
-		res.json({message: 'Ya existe el usuario.'});
+		res.status(400).json({message: 'Ya reclamaste un cupón.'});
 	}
 });
 
