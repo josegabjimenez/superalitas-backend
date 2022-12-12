@@ -23,7 +23,7 @@ router.get('/', function (req, res, next) {
 router.post('/email', async function (req, res, next) {
 	const {name, email, phone} = req.body;
 
-	const user = await User.findOne({email});
+	const user = await User.findOne({$or: [{email}, {phone}]});
 
 	if (!user) {
 		// Create new user in database
