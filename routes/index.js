@@ -20,6 +20,17 @@ router.get('/', function (req, res, next) {
 	res.render('index', {title: 'Express'});
 });
 
+/* GET users. */
+router.get('/users', async function (req, res, next) {
+	try {
+		const users = await User.find();
+		res.json({data: users});
+	} catch (err) {
+		res.status(400).json({message: 'Hubo un error'});
+	}
+});
+
+// POST
 router.post('/email', async function (req, res, next) {
 	const {name, email, phone} = req.body;
 
