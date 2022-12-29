@@ -3,6 +3,7 @@ var router = express.Router();
 const {transporter} = require('../services/nodemailer');
 const User = require('../models/User');
 const mongoose = require('mongoose');
+const XLSX = require("xlsx");
 // const Logo = require('../public/assets/images/logo.png');
 
 const generateCodeForUser = async () => {
@@ -27,6 +28,24 @@ router.get('/users', async function (req, res, next) {
 		res.json({data: users});
 	} catch (err) {
 		res.status(400).json({message: 'Hubo un error'});
+	}
+});
+
+/* Export Excel. */
+router.get('/users/export', async function (req, res, next) {
+	try {
+		const wb = XLSX.utils.book_new();
+		const users = await User.find();
+		let temp = JSON.stringify(users);
+		temp = JSON.parse(temp);
+		let ws = XLSX.utils.json_to_sheet(temp);
+		let down = __dirname + '/public/exportdata.xlsx';
+		XLSX.utils.book_append_sheet(wb, ws, "Usuarios Registrados");
+		await XLSX.writeFile(wb, down);
+		res.download(down);
+		// res.json({data: users});
+	} catch (err) {
+		res.status(400).json({message: 'Hubo un error', err});
 	}
 });
 
