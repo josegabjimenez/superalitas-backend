@@ -10,4 +10,4 @@ class DBInstance {
 
 module.exports = DBInstance;
 
-// mongoose.connect('mongodb+srv://josegabjimenez:M4n4ju4t3r@cluster0.ikc6z.mongodb.net/super_alitas?retryWrites=true&w=majority');
+// mongoose.connect('mongodb+srv://testUser:test123456789@cluster0.ikc6z.mongodb.net/super_alitas?retryWrites=true&w=majority');
